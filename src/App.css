@@ -8,8 +8,9 @@
     'companyName employeeName';
 
     grid-template-rows: 50px 1fr;
-    grid-template-columns: 3fr 6fr;
+    grid-template-columns: 5fr 5fr;
     grid-gap: 10px;
+
 }
 
 

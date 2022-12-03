@@ -8,3 +8,7 @@
     grid-area: employeeName;
     background-color: bisque;
 }
+
+li {
+    list-style-type: none;
+}
