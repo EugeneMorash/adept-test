@@ -1,7 +1,11 @@
 .company {
     grid-area: companyName;
     background-color: bisque;
+}
 
+.isActive {
+    color: orangered;
+    font-weight: 500;
 }
 
 .employee {

@@ -23,7 +23,7 @@ export function Company() {
 
                         return (
                             <li key={company.id}>
-                                <label>
+                                <label className={company.isActive ? styles.isActive : ""}>
                                     <input
                                         type="checkbox"
                                         onChange={onChangeIsActive}
