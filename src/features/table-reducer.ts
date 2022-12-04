@@ -11,9 +11,11 @@ export type TableStateType = typeof initialState
 export type TableActionType =
     | getTableStateAT
     | changeCompanyStatusAT
+    | changeAllCompanyStatusAT
 
 type getTableStateAT = ReturnType<typeof getTableStateAC>
 type changeCompanyStatusAT = ReturnType<typeof changeCompanyStatusAC>
+type changeAllCompanyStatusAT = ReturnType<typeof changeAllCompanyStatusAC>
 
 
 export const tableReducer = (state: TableStateType = initialState, action: TableActionType): TableStateType => {
@@ -27,6 +29,13 @@ export const tableReducer = (state: TableStateType = initialState, action: Table
                     ...c,
                     isActive: action.isActive
                 } : c)
+            }
+        case 'CHANGE-ALL-COMPANY-STATUS':
+            return {
+                ...state,
+                state: state.state.map((c) => ({
+                    ...c, isActive: action.isActive
+                }))
             }
         default:
             return state;
@@ -47,10 +56,30 @@ export const changeCompanyStatusAC = (companyID: string, isActive: boolean) => (
     isActive
 }) as const
 
+export const changeAllCompanyStatusAC = (isActive: boolean) => ({
+    type: 'CHANGE-ALL-COMPANY-STATUS',
+    isActive
+}) as const
+
+export const changeCompanyTitleAC = (companyID: string, isActive: boolean) => ({
+    type: 'CHANGE-COMPANY-STATUS',
+    companyID,
+    isActive
+}) as const
+
 
 //* ThunkCreators *//
 
 export const getTableStateTC = () => {
+    return (dispatch: any) => {
+        tableAPI.getTableState()
+            .then((res) => {
+                dispatch(getTableStateAC(res.data))
+            })
+    }
+}
+
+export const changeCompanyTitleTC = () => {
     return (dispatch: any) => {
         tableAPI.getTableState()
             .then((res) => {

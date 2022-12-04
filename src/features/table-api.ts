@@ -17,5 +17,8 @@ export type ResponseType = {
 export const tableAPI = {
     getTableState() {
         return instance.get<ResponseType[]>('/')
+    },
+    changeCompanyTitle() {
+        return instance.put(`/`)
     }
 }
