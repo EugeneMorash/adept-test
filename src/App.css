@@ -1,8 +1,6 @@
 .container {
     display: grid;
-    width: 900px;
-    margin: 0 auto;
-
+   
     grid-template-areas:
     'header header'
     'companyName employeeName';
@@ -10,6 +8,8 @@
     grid-template-rows: 50px 1fr;
     grid-template-columns: 5fr 5fr;
     grid-gap: 10px;
+
+    min-height: calc(100vh - 10px);
 
 }
 

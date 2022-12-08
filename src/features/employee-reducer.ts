@@ -1,32 +1,56 @@
-import {EmployeeType} from "./table-api";
+import {companyApi, CompanyType, EmployeeType} from "./company-api";
+import {changeCompanyTitleAC} from "./company-reducer";
+import {AppThunkType} from "../store/store";
 
 const initialState = {
-    employeeState: [] as EmployeeType[]
+    companyList: [] as CompanyType[],
+    removeEmployeeList: [] as CompanyType[]
 }
+
+export type EmployeeStateType = typeof initialState
 
 //* Types *//
 
-// export type EmployeeActionType =
-//     | readEmployeeStateAT
+export type EmployeeActionType =
+    | addEmployeeAT
 
-// type readEmployeeStateAT = ReturnType<typeof readEmployeeStateAC>
+type addEmployeeAT = ReturnType<typeof addEmployeeAC>
 
 
-// export const employeeReducer = (state: EmployeeType[] = initialState, action: EmployeeActionType): EmployeeType[] => {
-//     switch (action.type) {
-//         case 'READ-EMPLOYEE-STATE':
-//             return {...state, employeeState: action.employeeState}
-//         default:
-//             return state
-//
-//     }
-// }
-//
-//
-// //* ActionCreators *//
-//
-// export const readEmployeeStateAC = (companyID: string, employeeState: EmployeeType[]) => ({
-//     type: 'READ-EMPLOYEE-STATE',
-//     companyID,
-//     employeeState
-// }) as const
+export const employeeReducer = (employeeState: EmployeeStateType = initialState, action: EmployeeActionType): EmployeeStateType => {
+    switch (action.type) {
+        case 'ADD-EMPLOYEE':
+            return {...employeeState}
+        default:
+            return employeeState;
+
+    }
+}
+
+
+//* ActionCreators *//
+
+export const addEmployeeAC = (companyID: string, employeeState: EmployeeType[]) => ({
+    type: 'ADD-EMPLOYEE',
+    companyID,
+    employeeState
+}) as const
+
+const changeEmployeeNameAC = (companyID: string, employeeID: string, title: string) => ({
+    type: 'CHANGE-EMPLOYEE-NAME',
+    companyID,
+    employeeID,
+    title
+}) as const
+
+
+//* ThunkCreators *//
+
+export const changeEmployeeNameTC = (companyID: string, employeeID: string, title: string): AppThunkType => {
+    return (dispatch: any) => {
+        companyApi.changeCompanyTitle(companyID, title)
+            .then((res) => {
+                dispatch(changeCompanyTitleAC(companyID, title))
+            })
+    }
+}

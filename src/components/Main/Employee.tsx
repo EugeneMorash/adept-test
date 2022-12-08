@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './main.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {store} from "../../store/store";
+import {store, useAppDispatch, useAppSelector} from "../../store/store";
+import {EditableSpan} from "../EditableSpan/EditableSpan";
 
 export function Employee() {
-    const dispatch = useDispatch()
-    const state = useSelector(() => store.getState().table.state);
+    const dispatch = useAppDispatch()
+    const state = useAppSelector(() => store.getState().table.companyList);
     console.log(state)
 
     return (
@@ -13,9 +13,13 @@ export function Employee() {
             <ul>
                 {state.map((company) => {
                     return company.isActive && company.employees.map((employee) => {
+                        const changeEmployeeName = (title: string) => {
+                            
+                        };
+
                         return (
                             <li key={employee.id}>
-                                ФИО: {employee.name},
+                                ФИО: <EditableSpan title={employee.name} changeTitle={changeEmployeeName}/> ,
                                 Должность: {employee.position}
                             </li>
                         )

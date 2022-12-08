@@ -1,49 +1,55 @@
 import React, {ChangeEvent} from 'react';
 import styles from './main.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {store} from "../../store/store";
-import {changeCompanyStatusAC} from "../../features/table-reducer";
+import {store, useAppDispatch, useAppSelector} from "../../store/store";
+import {changeCompanyAddressTC, changeCompanyStatusAC, changeCompanyTitleTC} from "../../features/company-reducer";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 
 
 export function Company() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const state = useSelector(() => store.getState().table.state);
+    const state = useAppSelector(() => store.getState().table.companyList);
 
 
     return (
-        <div>
-            <div className={styles.company}>
-                <ul>
-                    {state.map((company) => {
-                        const onChangeIsActive = (e: ChangeEvent<HTMLInputElement>) => {
-                            dispatch(changeCompanyStatusAC(company.id, e.currentTarget.checked))
-                        };
 
-                        const changeCompanyTitle = (title: string) => {
+        <div className={styles.company}>
+            <ul>
+                {state.map((company) => {
+                    const onChangeIsActive = (e: ChangeEvent<HTMLInputElement>) => {
+                        dispatch(changeCompanyStatusAC(company.id, e.currentTarget.checked))
 
-                        };
+                    };
 
-                        return (
-                            <li key={company.id}>
-                                <label className={company.isActive ? styles.isActive : ""}>
-                                    <input
-                                        type="checkbox"
-                                        onChange={onChangeIsActive}
-                                        checked={company.isActive}
-                                    />
-                                    <EditableSpan title={company.company} changeTitle={changeCompanyTitle}/>
-                                    ,
+                    const changeCompanyTitle = (title: string) => {
+                        dispatch(changeCompanyTitleTC(company.id, title))
+                    };
+                    const changeCompanyAddress = (title: string) => {
+                        dispatch(changeCompanyAddressTC(company.id, title))
+                    };
 
-                                    Адрес: {company.address},
-                                    Сотрудники: {company.employees.length}</label>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
+                    return (
+                        <li key={company.id}>
+                            <label className={company.isActive ? styles.isActive : ""}>
+                                <input
+                                    type="checkbox"
+                                    onChange={onChangeIsActive}
+                                    checked={company.isActive}
+                                />
+                                <EditableSpan
+                                    title={company.company}
+                                    changeTitle={changeCompanyTitle}/>
+                                ,
+                                Адрес: <EditableSpan
+                                title={company.address}
+                                changeTitle={changeCompanyAddress}/>,
+                                Сотрудники: {company.employees.length}</label>
+                        </li>
+                    )
+                })}
+            </ul>
+
 
         </div>
     );
