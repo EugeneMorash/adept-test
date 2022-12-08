@@ -1,16 +1,59 @@
-.container {
+table {
+    width: auto;
+    flex: 1;
     display: grid;
-   
-    grid-template-areas:
-    'header header'
-    'companyName employeeName';
+}
 
-    grid-template-rows: 50px 1fr;
-    grid-template-columns: 5fr 5fr;
-    grid-gap: 10px;
+tbody {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
 
-    min-height: calc(100vh - 10px);
+thead,
+tr {
+    display: contents;
+}
 
+th,
+td {
+    padding: 15px;
+    overflow: hidden;
+}
+
+th {
+    top: 0;
+    background: #6c7ae0;
+    text-align: left;
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: white;
+}
+
+input {
+    margin-right: 5px;
+}
+
+label {
+    margin-right: 50px;
+}
+
+button {
+    margin-left: 15px;
+}
+
+td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #808080;
+}
+
+td:nth-child(even) {
+    background: #f8f6ff;
+}
+
+.isActive {
+    color: orangered;
+    font-weight: 500;
 }
 
 
