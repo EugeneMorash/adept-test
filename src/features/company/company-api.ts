@@ -1,4 +1,4 @@
-import {instance} from "../api/api";
+import {instance} from "../../api/api";
 import {v1} from "uuid";
 
 
@@ -6,6 +6,7 @@ export type EmployeeType = {
     name: string
     position: string
     id: string
+    isActive: boolean
 }
 export type CompanyType = {
     id: string
@@ -17,7 +18,7 @@ export type CompanyType = {
 }
 
 export const companyApi = {
-    getTableState() {
+    getCompanyState() {
         return instance.get<CompanyType[]>('/')
     },
     changeCompanyTitle(companyID: string, title: string) {

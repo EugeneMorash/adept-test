@@ -1,6 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import {store, useAppDispatch, useAppSelector} from "../../store/store";
-import {changeCompanyAddressTC, changeCompanyStatusAC, changeCompanyTitleTC} from "../../features/company-reducer";
+import {
+    changeCompanyAddressTC,
+    changeCompanyStatusAC,
+    changeCompanyTitleTC
+} from "../../features/company/company-reducer";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import '../../App.css'
 
@@ -9,17 +13,13 @@ export function Company() {
 
     const dispatch = useAppDispatch()
 
-    const state = useAppSelector(() => store.getState().table.companyList);
-
+    const state = useAppSelector(() => store.getState().company.companyList);
 
     return (
-
-
         <tr>
             {state.map((company) => {
                 const onChangeIsActive = (e: ChangeEvent<HTMLInputElement>) => {
                     dispatch(changeCompanyStatusAC(company.id, e.currentTarget.checked))
-
                 };
 
                 const changeCompanyTitle = (title: string) => {
@@ -49,7 +49,5 @@ export function Company() {
                 )
             })}
         </tr>
-
-
     );
 }

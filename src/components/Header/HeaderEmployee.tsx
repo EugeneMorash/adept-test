@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {changeAllCompanyStatusAC} from "../../features/company-reducer";
+import {changeAllCompanyStatusAC} from "../../features/company/company-reducer";
 import {useAppDispatch} from "../../store/store";
 
 export function HeaderEmployee() {

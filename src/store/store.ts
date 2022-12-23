@@ -6,13 +6,13 @@ import {
     ThunkDispatch
 } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import {CompanyActionType, companyReducer} from "../features/company-reducer";
+import {CompanyActionType, companyReducer} from "../features/company/company-reducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {EmployeeActionType, employeeReducer} from "../features/employee-reducer";
+import {EmployeeActionType, employeeReducer} from "../features/employee/employee-reducer";
 
 
 const rootReducer = combineReducers({
-    table: companyReducer,
+    company: companyReducer,
     employee: employeeReducer
 })
 

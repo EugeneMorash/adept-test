@@ -1,5 +1,5 @@
 import {CompanyType, companyApi} from "./company-api";
-import {AppThunkType} from "../store/store";
+import {AppThunkType} from "../../store/store";
 import {AxiosError} from "axios";
 
 const initialState = {
@@ -31,7 +31,7 @@ type deleteCompanyAT = ReturnType<typeof deleteCompanyAC>
 
 export const companyReducer = (companyState: CompanyStateType = initialState, action: CompanyActionType): CompanyStateType => {
     switch (action.type) {
-        case 'GET-TABLE-STATE':
+        case 'GET-COMPANY-STATE':
             return {...companyState, companyList: action.companyList}
         case 'CHANGE-COMPANY-STATUS':
             const companyList: CompanyType[] = companyState.companyList.map((c) => c.id === action.companyID ? {
@@ -40,14 +40,13 @@ export const companyReducer = (companyState: CompanyStateType = initialState, ac
             } : c)
 
             const removeCompanyList: CompanyType[] = companyList.filter((company => company.isActive))
-
+            
             return {
                 ...companyState,
                 companyList: companyList,
                 removeCompanyList
             }
         case 'CHANGE-ALL-COMPANY-STATUS':
-
             return {
                 ...companyState,
                 companyList: companyState.companyList.map((c) => ({
@@ -89,7 +88,7 @@ export const companyReducer = (companyState: CompanyStateType = initialState, ac
 //* ActionCreators *//
 
 export const getCompanyStateAC = (companyList: CompanyType[]) => ({
-    type: 'GET-TABLE-STATE',
+    type: 'GET-COMPANY-STATE',
     companyList
 }) as const
 
@@ -127,12 +126,11 @@ export const deleteCompanyAC = () => ({
 
 //* ThunkCreators *//
 
-export const getTableStateTC = () => {
+export const getCompanyStateTC = () => {
     return (dispatch: any) => {
-        companyApi.getTableState()
+        companyApi.getCompanyState()
             .then((res) => {
                 const companyList = res.data.map((company) => ({...company, isActive: false}))
-
                 dispatch(getCompanyStateAC(companyList))
             })
             .catch((error: AxiosError) => {
@@ -161,7 +159,7 @@ export const changeCompanyAddressTC = (companyID: string, title: string): AppThu
 
 export const deleteCompanyTC = (): AppThunkType => {
     return (dispatch, getState) => {
-        const removeCompanyList = getState().table.removeCompanyList
+        const removeCompanyList = getState().company.removeCompanyList
         const requestList = removeCompanyList.map((company) => companyApi.deleteCompany(company.id))
         console.log(requestList)
         Promise.all(requestList)

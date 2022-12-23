@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {addCompanyTC, changeAllCompanyStatusAC, deleteCompanyTC} from "../../features/company-reducer";
+import {addCompanyTC, changeAllCompanyStatusAC, deleteCompanyTC} from "../../features/company/company-reducer";
 import {useAppDispatch} from "../../store/store";
 
 export function HeaderCompany() {
